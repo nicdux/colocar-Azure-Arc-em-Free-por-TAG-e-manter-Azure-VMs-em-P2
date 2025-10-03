@@ -1,6 +1,8 @@
 Objetivo
 
+Manter Azure VMs sob Defender for Servers Plan 2 (P2) na assinatura, enquanto servidores Azure Arc (e qualquer outro recurso marcado) ficam em Free/sem plano no nível do recurso, usando TAG + Azure Policy (com remediação).
 Tudo que “subir” no RG rg-azurearc-... não recebe Defender for Servers (nem P1 nem P2) → fica Free/sem plano.
+
 
  
 Passo 0 — Entender o mecanismo (oficial)
