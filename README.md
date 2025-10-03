@@ -145,8 +145,9 @@ Location: a mesma do RG (ex.: East US).
 
 Review + create → Create.
 
-O que esperar: todo recurso com a TAG DefenderForServers=Disabled será colocado em Free/sem plano no nível do recurso
-(sem cobrança de Defender for Servers para esses Arc).
+O que esperar: todo recurso com a TAG DefenderForServers=Disabled será colocado em Free/sem plano no nível do recurso (sem cobrança de Defender for Servers para esses Arc).
+
+
 <img width="468" height="505" alt="image" src="https://github.com/user-attachments/assets/106a7606-40c0-4cce-aa35-9d973b1934a3" />
 
 
@@ -154,21 +155,25 @@ O que esperar: todo recurso com a TAG DefenderForServers=Disabled será colocado
 
 Em Policy → Assignments, abra a assignment recém-criada.
 
-Aba Remediation → Create remediation task.
+Aba Remediation → Create remediation task. 
+<img width="1652" height="632" alt="image" src="https://github.com/user-attachments/assets/0d32cb7b-940c-4ba8-b9e8-9bb4b8ec4a50" />
+
 
 Marque Re-evaluate compliance before remediating.
 
 Locations: selecione a região (ex.: East US).
 
 Create.
-![Uploading image.png…]()
+<img width="1667" height="884" alt="image" src="https://github.com/user-attachments/assets/123569b7-77d7-4f73-911c-9ac37e55c6ff" />
 
 
 Repita para a Policy 1 (herança da TAG) se necessário.
+![Uploading image.png…]()
+
 
 6) Onboard dos servidores Azure Arc
 
-Time de Arc: conectar as máquinas ao RG criado (ex.: rg-azurearc-itsbx-us) usando o método padrão.
+Time de Arc: conectar as máquinas ao RG criado (ex.: MyRgsLAbAzPols) usando o método padrão.
 
 Preferencialmente, enviar também a TAG no momento do connect (se o script permitir), ou confiar na Policy 1 para herdar a TAG do RG.
 
