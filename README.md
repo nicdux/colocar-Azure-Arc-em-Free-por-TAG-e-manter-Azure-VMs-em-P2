@@ -4,8 +4,39 @@ Manter Azure VMs sob Defender for Servers Plan 2 (P2) na assinatura, enquanto se
 Tudo que “subir” no RG `rg-azurearc-...` não recebe Defender for Servers (nem P1 nem P2) → fica Free/sem plano.
 
 ---
+# Pre-Checks (ARG) — Azure Arc + Defender for Servers (Free por TAG / VMs Azure em P2)
+
+Use **estas queries** no **Azure Resource Graph Explorer** **antes** de aplicar as políticas.  
+Objetivo: mapear servidores Arc, TAGs, extensões MDE, planos do Defender (resource-level vs subscription-level) e estimar impacto.
+
+---
+
+## Índice
+- [0) Parâmetros (ajuste rápido)](#0-parâmetros-ajuste-rápido)
+- [1) Inventário de Azure Arc (todas as subscriptions)](#1-inventário-de-azure-arc-todas-as-subscriptions)
+- [2) Arc com/sem TAG (RG alvo)](#2-arc-comsem-tag-rg-alvo)
+- [3) Extensão MDE (Windows/Linux) no RG alvo](#3-extensão-mde-windowslinux-no-rg-alvo)
+- [4) Defender for Servers — Plano (resource-level vs subscription-level)](#4-defender-for-servers--plano-resourcelevel-vs-subscriptionlevel)
+- [5) Auto-provisioning do Defender for Cloud](#5-auto-provisioning-do-defender-for-cloud)
+- [6) Policy assignments no RG alvo](#6-policy-assignments-no-rg-alvo)
+- [7) Impacto previsto ao aplicar a TAG no RG](#7-impacto-previsto-ao-aplicar-a-tag-no-rg)
+- [8) Métricas executivas](#8-métricas-executivas)
+
+---
+
+## 0) Parâmetros (ajuste rápido)
+
+> **Edite aqui** os valores do RG e da TAG. Em seguida, rode as queries das seções abaixo.
+
+```kusto
+let rg       = "rg-azurearc-itsbx-us";   // RG alvo (Arc)
+let tagName  = "DefenderForServers";     // Nome da TAG de controle
+let tagValue = "Disabled";               // Valor da TAG de controle
+
+
 
 ## Passo 0 — Entender o mecanismo (oficial)
+
 
 O Defender for Servers pode ser habilitado/desabilitado por recurso (VM/Arc/VMSS), além do nível de assinatura.  
 A documentação afirma:  
